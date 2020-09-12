@@ -1,0 +1,116 @@
+■2020/08/30：firebase環境作成
+
+cd workspace_node
+mkdir node_firebase_sample
+cd node_firebase_sample
+
+firebase init
+
+dir
+2020/08/30  15:34    <DIR>          .
+2020/08/30  15:34    <DIR>          ..
+2020/08/30  15:34                52 .firebaserc
+2020/08/30  15:34             1,166 .gitignore
+2020/08/30  15:34               242 firebase.json
+2020/08/30  15:33                44 firestore.indexes.json
+2020/08/30  15:33               687 firestore.rules
+2020/08/30  15:34    <DIR>          functions
+
+
+■2020/08/30：GitHub環境作成
+→Repository作成
+→https://github.com/ywarahi/node_firebase_sample.git
+
+git init
+git add .
+git commit -m "Initial Commit"
+git remote add origin https://github.com/ywarahi/node_firebase_sample.git
+git push -u origin master
+
+remove →clone
+
+
+■2020/08/30：function実行まで
+npm install firebase-functions@latest firebase-admin@latest --save
+npm i typescript
+npm i typescript tslint --save-dev
+
+firebase deploy --only functions
+→失敗
+
+
+→index.ts：コメントアウト
+
+
+→package.json
+// "engines": {
+//     "node": "8"
+//   },
+
+
+C:\Users\warahi\workspace_node\node_firebase_sample\functions>firebase deploy --only functions
+
+=== Deploying to 'my-bsc-003'...
+
+i  deploying functions
+Running command: npm --prefix "$RESOURCE_DIR" run lint
+npm WARN lifecycle The node binary used for scripts is C:\Program Files (x86)\Nodist\bin\node.exe but npm is using C:\Program Files (x86)\Nodist\v-x64\10.15.0\node.exe itself. Use the `--scripts-prepend-node-path` option to include the path for the node binary npm was executed with.
+
+> functions@ lint C:\Users\warahi\workspace_node\node_firebase_sample\functions
+> tslint --project tsconfig.json
+
+Running command: npm --prefix "$RESOURCE_DIR" run build
+npm WARN lifecycle The node binary used for scripts is C:\Program Files (x86)\Nodist\bin\node.exe but npm is using C:\Program Files (x86)\Nodist\v-x64\10.15.0\node.exe itself. Use the `--scripts-prepend-node-path` option to include the path for the node binary npm was executed with.
+
+> functions@ build C:\Users\warahi\workspace_node\node_firebase_sample\functions
+> tsc
+
++  functions: Finished running predeploy script.
+i  functions: ensuring required API cloudfunctions.googleapis.com is enabled...
+i  functions: ensuring required API cloudbuild.googleapis.com is enabled...
+!  functions: missing required API cloudbuild.googleapis.com. Enabling now...
++  functions: required API cloudfunctions.googleapis.com is enabled
+
+Error: Cloud Functions deployment requires the pay-as-you-go (Blaze) billing plan. To upgrade your project, visit the following URL:
+
+https://console.firebase.google.com/project/my-bsc-003/usage/details
+
+For additional information about this requirement, see Firebase FAQs:
+
+https://firebase.google.com/support/faq#functions-runtime
+
+C:\Users\warahi\workspace_node\node_firebase_sample\functions>firebase deploy --only functions
+
+=== Deploying to 'my-bsc-003'...
+
+i  deploying functions
+Running command: npm --prefix "$RESOURCE_DIR" run lint
+npm WARN lifecycle The node binary used for scripts is C:\Program Files (x86)\Nodist\bin\node.exe but npm is using C:\Program Files (x86)\Nodist\v-x64\10.15.0\node.exe itself. Use the `--scripts-prepend-node-path` option to include the path for the node binary npm was executed with.
+
+> functions@ lint C:\Users\warahi\workspace_node\node_firebase_sample\functions
+> tslint --project tsconfig.json
+
+Running command: npm --prefix "$RESOURCE_DIR" run build
+npm WARN lifecycle The node binary used for scripts is C:\Program Files (x86)\Nodist\bin\node.exe but npm is using C:\Program Files (x86)\Nodist\v-x64\10.15.0\node.exe itself. Use the `--scripts-prepend-node-path` option to include the path for the node binary npm was executed with.
+
+> functions@ build C:\Users\warahi\workspace_node\node_firebase_sample\functions
+> tsc
+
++  functions: Finished running predeploy script.
+i  functions: ensuring required API cloudfunctions.googleapis.com is enabled...
+
+!  functions: The Node.js 8 runtime is deprecated and will be decommissioned on 2021-03-15. For more information, see: https://firebase.google.com/support/faq#functions-runtime
+
++  functions: required API cloudfunctions.googleapis.com is enabled
+i  functions: preparing functions directory for uploading...
+i  functions: packaged functions (4.4 KB) for uploading
++  functions: functions folder uploaded successfully
+i  functions: creating Node.js 8 (Deprecated) function helloWorld(us-central1)...
++  functions[helloWorld(us-central1)]: Successful create operation.
+Function URL (helloWorld): https://us-central1-my-bsc-003.cloudfunctions.net/helloWorld
+
++  Deploy complete!
+
+Project Console: https://console.firebase.google.com/project/my-bsc-003/overview
+
+C:\Users\warahi\workspace_node\node_firebase_sample\functions>
